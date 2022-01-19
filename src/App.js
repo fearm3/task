@@ -7,17 +7,17 @@ const url = "https://restcountries.com/v2/all";
 
 function App() {
   const [data, setData] = useState([]);
-  const [search, setSearch] = useState("Turkey");
+  const [search, setSearch] = useState("");
 
   const handleGetData = () => {
-    const searchUrl = `https://restcountries.com/v3.1/name/${search}`; //!name=>capital
+    const searchUrl = `https://restcountries.com/v3.1/capital/${search}`; //!name=>capital
     search
       ? axios.get(searchUrl).then((response) => {
-          console.log(response.data);
+          // console.log(response.data);
           setData(response.data);
         })
       : axios.get(url).then((response) => {
-          console.log(response.data);
+          // console.log(response.data);
           setData(response.data);
         });
   };
@@ -28,7 +28,7 @@ function App() {
 
   return data ? (
     <div>
-      <input type="text" onChange={(e) => setData(e.target.value)} />
+      <input type="text" onChange={(e) => setSearch(e.target.value)} />
       <button onClick={handleGetData}>Search</button>
       {data?.map((item, index) => (
         <TableContainer {...item} key={index} />

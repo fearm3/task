@@ -3,32 +3,30 @@ import { Table } from "react-bootstrap";
 
 const TableContainer = ({ name, capital, region, flag }) => {
   return (
-    <div className="search">
-      <Table striped bordered hover size="sm">
-        <thead className="text-left">
-          <tr>
-            <th>Name</th>
-            <th>Capital</th>
-            <th>Region</th>
-            <th>Flag</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>{name}</td>
-            <td>{capital}</td>
-            <td>{region}</td>
-            <td>
-              <img
-                src={flag}
-                alt="flag"
-                style={{ width: "150px", height: "120px" }}
-              />
-            </td>
-          </tr>
-        </tbody>
-      </Table>
-    </div>
+    <Table striped bordered hover size="sm">
+      <thead className="text-left">
+        <tr>
+          <th>Name</th>
+          <th>Capital</th>
+          <th>Region</th>
+          <th>Flag</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{name}</td>
+          <td>{capital}</td>
+          <td>{region}</td>
+          <td>
+            <img
+              src={flag}
+              alt="flag"
+              style={{ width: "150px", height: "120px" }}
+            />
+          </td>
+        </tr>
+      </tbody>
+    </Table>
   );
 };
 
