@@ -6,13 +6,17 @@ import { Spinner } from "react-bootstrap";
 const url = "https://restcountries.com/v2/all";
 
 function App() {
-  const [data, setData] = useState([]);
-  const [search, setSearch] = useState("");
+  const [data, setData] = useState();
+  const [capital, setCapital] = useState();
+
+  useEffect(() => {
+    handleGetData();
+  }, []);
 
   const handleGetData = () => {
-    const searchUrl = `https://restcountries.com/v3.1/capital/${search}`; //!name=>capital
-    search
-      ? axios.get(searchUrl).then((response) => {
+    const capitalUrl = `https://restcountries.com/v2/capital/${capital}`;
+    capital
+      ? axios.get(capitalUrl).then((response) => {
           // console.log(response.data);
           setData(response.data);
         })
@@ -22,23 +26,25 @@ function App() {
         });
   };
 
-  useEffect(() => {
-    handleGetData();
-  }, []);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
 
-  return data ? (
+  return (
     <div>
-      <input type="text" onChange={(e) => setSearch(e.target.value)} />
-      <button onClick={handleGetData}>Search</button>
-      {data?.map((item, index) => (
-        <TableContainer {...item} key={index} />
-      ))}
-    </div>
-  ) : (
-    <div className="App">
-      <Spinner animation="grow" variant="primary" />
-      <Spinner animation="grow" variant="secondary" />
-      <Spinner animation="grow" variant="success" />
+      {data ? (
+        <form onSubmit={handleSubmit}>
+          <input type="text" onChange={(e) => setCapital(e.target.value)} />
+          <button onClick={handleGetData}>Search Capital</button>
+          <TableContainer data={data} />)
+        </form>
+      ) : (
+        <div className="d-flex justify-content-center ">
+          <Spinner animation="grow" variant="primary" />
+          <Spinner animation="grow" variant="secondary" />
+          <Spinner animation="grow" variant="success" />
+        </div>
+      )}
     </div>
   );
 }
