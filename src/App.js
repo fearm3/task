@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
+import "./App.css";
 import TableContainer from "./TableContainer";
 import { Spinner } from "react-bootstrap";
 
@@ -8,13 +9,20 @@ const url = "https://restcountries.com/v2/all";
 function App() {
   const [data, setData] = useState();
   const [capital, setCapital] = useState();
+  const searchValue = useRef();
 
   useEffect(() => {
+    // searchValue.current.focus();
     handleGetData();
   }, []);
 
+  // useEffect(() => {
+  //   searchValue.current.focus();
+  // }, []);
+
   const handleGetData = () => {
     const capitalUrl = `https://restcountries.com/v2/capital/${capital}`;
+
     capital
       ? axios.get(capitalUrl).then((response) => {
           // console.log(response.data);
@@ -31,15 +39,28 @@ function App() {
   };
 
   return (
-    <div>
+    <div
+      className="bg-success bg-opacity-50 d-flex flex-direction-column justify-content-center align-items-center "
+      style={{ height: "100%" }}
+    >
       {data ? (
-        <form onSubmit={handleSubmit}>
-          <input type="text" onChange={(e) => setCapital(e.target.value)} />
-          <button onClick={handleGetData}>Search Capital</button>
-          <TableContainer data={data} />)
+        <form onSubmit={handleSubmit} style={{ height: "100%" }}>
+          <input
+            className="text-primary ms-5 mt-3 border border-warning rounded-3 "
+            type="text"
+            ref={searchValue}
+            onChange={() => setCapital(searchValue.current.value)}
+          />
+          <button onClick={handleGetData} className="mx-1 btn btn-warning">
+            Search Capital
+          </button>
+          <TableContainer data={data} />
         </form>
       ) : (
-        <div className="d-flex justify-content-center ">
+        <div
+          className="container d-flex justify-content-center align-items-center"
+          style={{ height: "800px" }}
+        >
           <Spinner animation="grow" variant="primary" />
           <Spinner animation="grow" variant="secondary" />
           <Spinner animation="grow" variant="success" />
