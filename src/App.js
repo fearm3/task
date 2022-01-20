@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
-import "./App.css";
 import TableContainer from "./TableContainer";
 import { Spinner } from "react-bootstrap";
 
@@ -36,10 +35,14 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setData("");
   };
 
   return (
-    <div className="bg-success bg-opacity-50 d-flex flex-direction-column justify-content-center align-items-center ">
+    <div
+      className="bg-success bg-opacity-50 d-flex flex-direction-column justify-content-center align-items-center "
+      style={{ minHeight: "100vh" }}
+    >
       {data ? (
         <form onSubmit={handleSubmit} className="mt-5">
           <input
@@ -54,10 +57,7 @@ function App() {
           <TableContainer data={data} />
         </form>
       ) : (
-        <div
-          className="container d-flex justify-content-center align-items-center"
-          style={{ height: "800px" }}
-        >
+        <div className="container d-flex justify-content-center align-items-center">
           <Spinner animation="grow" variant="primary" />
           <Spinner animation="grow" variant="secondary" />
           <Spinner animation="grow" variant="success" />
