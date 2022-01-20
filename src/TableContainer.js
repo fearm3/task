@@ -9,10 +9,9 @@ const TableContainer = ({ data }) => {
       bordered
       hover
       size="sm"
-      className="m-5 mt-3 bg-info bg-opacity-50  "
-      
+      className="m-5 bg-info bg-opacity-50"
     >
-      <thead className="text-center ">
+      <thead className="text-center">
         <tr>
           <th>Name</th>
           <th>Capital</th>
@@ -25,13 +24,13 @@ const TableContainer = ({ data }) => {
         return (
           <tbody key={index} className="text-center ">
             <tr>
-              <td className="pt-4 text-white" style={{ width: "150px" }}>
+              <td className="py-4 text-white" style={{ width: "150px" }}>
                 {name}
               </td>
-              <td className="pt-4 text-white" style={{ width: "150px" }}>
+              <td className="py-4 text-white" style={{ width: "150px" }}>
                 {capital}
               </td>
-              <td className="pt-4 text-white" style={{ width: "150px" }}>
+              <td className="py-4 text-white" style={{ width: "150px" }}>
                 {region}
               </td>
               <td className="p-2" style={{ width: "100px" }}>

@@ -39,12 +39,9 @@ function App() {
   };
 
   return (
-    <div
-      className="bg-success bg-opacity-50 d-flex flex-direction-column justify-content-center align-items-center "
-      style={{ height: "100%" }}
-    >
+    <div className="bg-success bg-opacity-50 d-flex flex-direction-column justify-content-center align-items-center ">
       {data ? (
-        <form onSubmit={handleSubmit} style={{ height: "100%" }}>
+        <form onSubmit={handleSubmit} className="mt-5">
           <input
             className="text-primary ms-5 mt-3 border border-warning rounded-3 "
             type="text"
