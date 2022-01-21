@@ -10,6 +10,7 @@ const TableContainer = ({ data }) => {
       hover
       size="sm"
       className="m-5 bg-info bg-opacity-50"
+      responsive
     >
       <thead className="text-center">
         <tr>
@@ -24,7 +25,7 @@ const TableContainer = ({ data }) => {
         return (
           <tbody key={index} className="text-center ">
             <tr>
-              <td className="py-4 text-white" style={{ width: "150px" }}>
+              <td className="py-4 text-white " style={{ width: "150px" }}>
                 {name}
               </td>
               <td className="py-4 text-white" style={{ width: "150px" }}>
