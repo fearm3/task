@@ -9,8 +9,8 @@ const TableContainer = ({ data }) => {
       bordered
       hover
       size="sm"
-      className="m-5 bg-info bg-opacity-50"
-      responsive
+      className="m-5 bg-info bg-opacity-50 w-50"
+      variant="dark"
     >
       <thead className="text-center">
         <tr>
@@ -23,19 +23,13 @@ const TableContainer = ({ data }) => {
       {data?.map((item, index) => {
         const { name, capital, region, flag } = item;
         return (
-          <tbody key={index} className="text-center ">
+          <tbody key={index} className="text-center">
             <tr>
-              <td className="py-4 text-white " style={{ width: "150px" }}>
-                {name}
-              </td>
-              <td className="py-4 text-white" style={{ width: "150px" }}>
-                {capital}
-              </td>
-              <td className="py-4 text-white" style={{ width: "150px" }}>
-                {region}
-              </td>
-              <td className="p-2" style={{ width: "100px" }}>
-                <img src={flag} alt="flag" style={{ width: "120px" }} />
+              <td className="w-25 py-4 text-white ">{name}</td>
+              <td className="w-25 py-4 text-white">{capital}</td>
+              <td className="w-25 py-4 text-white">{region}</td>
+              <td className="w-25">
+                <img src={flag} alt="flag" className="w-50 py-1" />
               </td>
             </tr>
           </tbody>

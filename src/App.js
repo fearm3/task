@@ -7,6 +7,7 @@ function App() {
   const [data, setData] = useState();
   const [capital, setCapital] = useState();
   const [isLoading, setIsLoading] = useState(false);
+  const [allValue, setAllValue] = useState();
   const searchValue = useRef("");
   const searchAllValue = useRef("");
 
@@ -14,7 +15,7 @@ function App() {
     setCapital(searchValue.current.value);
   };
   const searchAll = () => {
-    setCapital(searchAllValue.current.value);
+    setAllValue(searchAllValue.current.value);
   };
 
   useEffect(() => {
@@ -31,15 +32,17 @@ function App() {
     setIsLoading(false);
   };
 
+  //filter func. for capital city
   const filteredData = data?.filter((item) =>
     item?.capital?.toLowerCase().includes(capital)
   );
   console.log(filteredData);
 
+  //filter func. all
   const filterAll = data?.filter((item) =>
     (item.capital || item.flag || item.name || item.region)
       .toLowerCase()
-      .includes(capital)
+      .includes(allValue)
   );
   console.log(filterAll);
   return (
@@ -62,10 +65,10 @@ function App() {
             type="text"
             ref={searchValue}
           />
-          <button onClick={searchCapital} className="mx-1 btn btn-warning">
+          <button onClick={searchCapital} className="mx-1 btn btn-danger">
             Search Capital
           </button>
-          <TableContainer data={filteredData ? filteredData : filterAll} />
+          <TableContainer data={searchCapital ? filteredData : filterAll} />
         </div>
       ) : (
         <div className="container d-flex justify-content-center align-items-center">
