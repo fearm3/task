@@ -16,9 +16,9 @@ function App() {
   };
 
   useEffect(() => {
-    // searchValue.current.focus();
+    searchCapital();
     handleGetData();
-  }, []);
+  }, [searchCapital]);
 
   const url = "https://restcountries.com/v2/all";
   const handleGetData = () => {
@@ -36,13 +36,7 @@ function App() {
   );
   console.log(filteredData);
 
-  const filterAll = data?.filter(item)=>(item.capital || item.flag || item.
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   setData("");
-  //   setIsLoading(true);
-  // };
+  // const filterAll = data?.filter(item)=>(item.capital || item.flag || item.
 
   return (
     <div
@@ -59,9 +53,7 @@ function App() {
           <button onClick={searchCapital} className="mx-1 btn btn-warning">
             Search Capital
           </button>
-          <TableContainer
-            data={filteredData.length > 0 ? filteredData : "No data"}
-          />
+          <TableContainer data={filteredData ? filteredData : data} />
         </div>
       ) : (
         <div className="container d-flex justify-content-center align-items-center">
