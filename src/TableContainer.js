@@ -2,7 +2,7 @@ import React from "react";
 import { Table } from "react-bootstrap";
 
 const TableContainer = ({ data }) => {
-  console.log(data);
+  console.log("tableContainer=>", data);
   return (
     <Table
       striped

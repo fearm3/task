@@ -8,24 +8,24 @@ function App() {
   const [capital, setCapital] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const searchValue = useRef("");
-
-  console.log(searchValue.current.value);
+  const searchAllValue = useRef("");
 
   const searchCapital = () => {
     setCapital(searchValue.current.value);
   };
+  const searchAll = () => {
+    setCapital(searchAllValue.current.value);
+  };
 
   useEffect(() => {
     searchCapital();
-    handleGetData();
-  }, [searchCapital]);
+    getData();
+  }, []);
 
   const url = "https://restcountries.com/v2/all";
-  const handleGetData = () => {
-    // const capitalUrl = `https://restcountries.com/v2/capital/${capital}`;
-
+  const getData = () => {
     axios.get(url).then((response) => {
-      console.log(response.data);
+      // console.log(response.data);
       setData(response.data);
     });
     setIsLoading(false);
@@ -36,8 +36,12 @@ function App() {
   );
   console.log(filteredData);
 
-  // const filterAll = data?.filter(item)=>(item.capital || item.flag || item.
-
+  const filterAll = data?.filter((item) =>
+    (item.capital || item.flag || item.name || item.region)
+      .toLowerCase()
+      .includes(capital)
+  );
+  console.log(filterAll);
   return (
     <div
       className="bg-success bg-opacity-50 d-flex flex-direction-column justify-content-center align-items-center "
@@ -48,12 +52,20 @@ function App() {
           <input
             className="text-primary ms-5 mt-3 border border-warning rounded-3 "
             type="text"
+            ref={searchAllValue}
+          />
+          <button onClick={searchAll} className="mx-1 btn btn-warning">
+            Search All
+          </button>
+          <input
+            className="text-primary ms-5 mt-3 border border-warning rounded-3 "
+            type="text"
             ref={searchValue}
           />
           <button onClick={searchCapital} className="mx-1 btn btn-warning">
             Search Capital
           </button>
-          <TableContainer data={filteredData ? filteredData : data} />
+          <TableContainer data={filteredData ? filteredData : filterAll} />
         </div>
       ) : (
         <div className="container d-flex justify-content-center align-items-center">
