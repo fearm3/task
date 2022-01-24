@@ -34,17 +34,24 @@ function App() {
   };
 
   //filter func. for capital city
-  const filteredData = data?.filter((item) =>
-    item?.capital?.toLowerCase().includes(capital)
-  );
+  const filteredData = data?.filter((item) => {
+    if (!!capital) {
+      return item;
+    } else {
+      return item?.capital?.toLowerCase().includes(capital.toLowerCase());
+    }
+  });
   console.log(filteredData);
 
   //filter func. all
-  const filterAll = data?.filter((item) =>
-    (item.capital || item.flag || item.name || item.region)
-      .toLowerCase()
-      .includes(searchAllValue)
-  );
+  const filterAll = data?.filter((item) => {
+    if (!!searchAllValue) {
+      return item;
+    } else {
+      return Array.from(item)?.includes(allValue);
+      // return item.includes(allValue);
+    }
+  });
   console.log(filterAll);
   return (
     <div className="bg-success min-vh-100 bg-opacity-50 d-flex flex-direction-column justify-content-center align-items-center ">
