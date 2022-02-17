@@ -58,7 +58,7 @@ const Home = () => {
   ];
 
   const handleButtonClick = (id) => {
-    navigate(`details/${id}`);
+    navigate(`detail/${id}`);
   };
   const fetchUsers = async (page) => {
     setLoading(true);
