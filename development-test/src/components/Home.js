@@ -1,26 +1,9 @@
+import { PinDropSharp } from "@mui/icons-material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-
-const columns = [
-  {
-    name: "Name",
-    selector: (row) => row.name,
-  },
-  {
-    name: "Email",
-    selector: (row) => row.email,
-  },
-  {
-    name: "Gender",
-    selector: (row) => row.gender,
-  },
-  {
-    name: "Status",
-    selector: (row) => row.status,
-  },
-];
 
 const FilterComponent = ({ filterText, onFilter, onClear }) => (
   <>
@@ -42,12 +25,41 @@ const Home = () => {
   const [filterText, setFilterText] = React.useState("");
   const [resetPaginationToggle, setResetPaginationToggle] =
     React.useState(false);
+  const navigate = useNavigate();
 
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [totalRows, setTotalRows] = useState(0);
- 
 
+  const columns = [
+    {
+      cell: (row) => (
+        <button onClick={() => handleButtonClick(row.id)}>Details</button>
+      ),
+      ignoreRowClick: true,
+      allowOverflow: true,
+      button: true,
+    },
+    {
+      name: "Name",
+      selector: (row) => row.name,
+    },
+    {
+      name: "Email",
+      selector: (row) => row.email,
+    },
+    {
+      name: "Gender",
+      selector: (row) => row.gender,
+    },
+    {
+      name: "Status",
+      selector: (row) => row.status,
+    },
+  ];
+
+  const handleButtonClick = (id) => {
+    navigate(`details/${id}`);
+  };
   const fetchUsers = async (page) => {
     setLoading(true);
 
@@ -56,7 +68,7 @@ const Home = () => {
     );
 
     setData(response.data);
-    setTotalRows(response.data.length);
+
     setLoading(false);
     console.log(page);
     console.log(response.data);
@@ -98,20 +110,23 @@ const Home = () => {
       columns={columns}
       data={filteredItems}
       pagination
-      paginationResetDefaultPage={resetPaginationToggle} // optionally, a hook to reset pagination to page 1
+      paginationResetDefaultPage={resetPaginationToggle}
       subHeader
       subHeaderComponent={subHeaderComponentMemo}
-      selectableRows
+      // selectableRows
+      expandableRows
+      // expandableRowsComponent
       persistTableHead
       paginationServer
-      paginationTotalRows={totalRows}
+      paginationTotalRows={10000}
       onChangePage={handlePageChange}
+      theme="dark"
     />
   );
 };
 
 export default Home;
-
+//styled-components
 const TextField = styled.input`
   height: 32px;
   width: 200px;
