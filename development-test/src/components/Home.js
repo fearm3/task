@@ -1,11 +1,11 @@
-import { PinDropSharp } from "@mui/icons-material";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { addUserViews } from "../redux/actions";
+import LastView from "./LastView";
 
 const FilterComponent = ({ filterText, onFilter, onClear }) => (
   <>
@@ -74,8 +74,8 @@ const Home = () => {
     setData(response.data);
 
     setLoading(false);
-    console.log(page);
-    console.log(response.data);
+    // console.log(page);
+    // console.log(response.data);
   };
 
   const handlePageChange = (page) => {
@@ -109,28 +109,31 @@ const Home = () => {
   }, [filterText, resetPaginationToggle]);
 
   return (
-    <DataTable
-      title="Contact List"
-      columns={columns}
-      data={filteredItems}
-      pagination
-      paginationResetDefaultPage={resetPaginationToggle}
-      subHeader
-      subHeaderComponent={subHeaderComponentMemo}
-      // selectableRows
-      expandableRows
-      // expandableRowsComponent
-      persistTableHead
-      paginationServer
-      paginationTotalRows={10000}
-      onChangePage={handlePageChange}
-      theme="dark"
-    />
+    <Fragment>
+      <DataTable
+        title="Contact List"
+        columns={columns}
+        data={filteredItems}
+        pagination
+        paginationResetDefaultPage={resetPaginationToggle}
+        subHeader
+        subHeaderComponent={subHeaderComponentMemo}
+        // selectableRows
+        expandableRows
+        // expandableRowsComponent
+        persistTableHead
+        paginationServer
+        paginationTotalRows={10000}
+        onChangePage={handlePageChange}
+        theme="dark"
+      />
+    </Fragment>
   );
 };
 
 export default Home;
-//styled-components
+
+//*styled-components
 const TextField = styled.input`
   height: 32px;
   width: 200px;

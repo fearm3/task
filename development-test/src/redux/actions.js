@@ -1,13 +1,15 @@
+import { ADD_USER_VIEW, GET_VIEWS } from "./types";
+
 export const addUserView = (payload) => {
   return {
-    type: "ADD_USER_ViEW",
+    type: ADD_USER_VIEW,
     payload,
   };
 };
 
 export const getView = (payload) => {
   return {
-    type: "GET_VIEWS",
+    type: GET_VIEWS,
     payload,
   };
 };
@@ -22,7 +24,6 @@ export const getViews = () => {
   return (dispatch) => {
     const data = JSON.parse(localStorage.getItem("lastView"));
     console.log(data);
-
     dispatch(getView(data));
   };
 };

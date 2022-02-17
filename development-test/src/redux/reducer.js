@@ -1,10 +1,12 @@
+import { ADD_USER_VIEW, GET_VIEWS } from "./types";
+
 const initialState = {
   lastViews: [],
 };
 
 export const rootReducer = (state = initialState.lastViews, action) => {
   switch (action.type) {
-    case "ADD_USER_ViEW":
+    case ADD_USER_VIEW:
       // console.log(action.payload);
       // console.log(state);
       if (state == null) {
@@ -15,12 +17,14 @@ export const rootReducer = (state = initialState.lastViews, action) => {
       if (addedItem) {
         return state;
       } else {
-        const newState = [...state, action.payload].reverse().substr(0, 4);
+        const newState = [...state, action.payload].slice(-5);
+
         localStorage.setItem("lastView", JSON.stringify(newState));
+        console.log(newState);
         return newState;
       }
-    case "GET_VIEWS":
-      return action.payload;
+    case GET_VIEWS:
+      return [...action.payload];
 
     default: {
       return state;
