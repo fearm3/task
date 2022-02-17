@@ -2,8 +2,10 @@ import { PinDropSharp } from "@mui/icons-material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { addUserViews } from "../redux/actions";
 
 const FilterComponent = ({ filterText, onFilter, onClear }) => (
   <>
@@ -26,6 +28,7 @@ const Home = () => {
   const [resetPaginationToggle, setResetPaginationToggle] =
     React.useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -33,7 +36,7 @@ const Home = () => {
   const columns = [
     {
       cell: (row) => (
-        <button onClick={() => handleButtonClick(row.id)}>Details</button>
+        <button onClick={() => handleButtonClick(row)}>Details</button>
       ),
       ignoreRowClick: true,
       allowOverflow: true,
@@ -57,8 +60,9 @@ const Home = () => {
     },
   ];
 
-  const handleButtonClick = (id) => {
-    navigate(`detail/${id}`);
+  const handleButtonClick = (row) => {
+    dispatch(addUserViews(row));
+    navigate(`detail/${row.id}`);
   };
   const fetchUsers = async (page) => {
     setLoading(true);
