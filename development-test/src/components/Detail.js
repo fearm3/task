@@ -1,4 +1,11 @@
-import { Button, Card, CardContent, Typography } from "@mui/material";
+import {
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CircularProgress,
+  Typography,
+} from "@mui/material";
 import axios from "axios";
 import React, { Fragment, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -11,64 +18,78 @@ const Detail = () => {
   const navigate = useNavigate();
   const fetchUsersData = async (id) => {
     setLoading(true);
-
-    const response = await axios.get(
-      `https://gorest.co.in/public/v2/users/${id}`
-    );
+    const user = await axios.get(`https://gorest.co.in/public/v2/users/${id}`);
     //https://gorest.co.in/public/v2/users/3904
-    setUserData(response.data);
-    setLoading(false);
-
-    console.log("data", response.data);
-  };
-  const fetchUsersPost = async (id) => {
-    setLoading(true);
-
+    setUserData(user.data);
+    // console.log("data", user.data);
     const response = await axios.get(
       `https://gorest.co.in/public/v2/users/${id}/posts`
     );
     //https://gorest.co.in/public/v2/users/3904/posts
     setUserPost(response.data);
+    // console.log("post", response.data);
     setLoading(false);
-
-    console.log("post", response.data);
   };
+
   useEffect(() => {
     fetchUsersData(id);
-    fetchUsersPost(id);
   }, [id]);
 
   return (
-    <Card>
-      <CardContent>
-        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          {userData?.name}
-        </Typography>
-        <Typography variant="h5" component="div">
-          {userData?.email}
-        </Typography>
-        <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          {userData?.gender}
-        </Typography>
-        <Typography variant="body2">{userData?.status}</Typography>
-        {userPost?.length !== 0 ? (
-          userPost?.map((post) => (
-            <Fragment key={post.id}>
-              <Typography variant="body2">{post.title}</Typography>
-              <Typography variant="body2">{post.body}</Typography>
-            </Fragment>
-          ))
-        ) : (
-          <p>No post added</p>
-        )}
-      </CardContent>
-      <Button
-        style={{ display: "grid", placeItems: "center" }}
-        onClick={() => navigate(-1)}
-      >
-        Back Home
-      </Button>
-    </Card>
+    <>
+      {loading ? (
+        <div
+          style={{ display: "grid", placeItems: "center", marginTop: "20rem" }}
+        >
+          <CircularProgress size={150} color="warning" />
+        </div>
+      ) : (
+        <Card
+          sx={{ maxWidth: 750 }}
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            margin: "auto",
+          }}
+        >
+          <CardContent>
+            <Typography gutterBottom variant="h4" component="div">
+              Name : {userData?.name}
+            </Typography>
+            <Typography variant="body1" color="text.secondary">
+              Email : {userData?.email}
+            </Typography>
+            <Typography variant="body1" color="text.secondary">
+              Status : {userData?.status}
+            </Typography>
+            <Typography variant="body1" color="text.secondary">
+              Gender : {userData?.gender}
+            </Typography>
+
+            <hr />
+            {userPost?.length !== 0 ? (
+              userPost?.map((post) => (
+                <>
+                  <Typography gutterBottom variant="h5" component="div">
+                    {post?.title}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {post?.body}
+                  </Typography>
+                </>
+              ))
+            ) : (
+              <Typography variant="body2" color="text.secondary">
+                {userData?.name} has not a post
+              </Typography>
+            )}
+          </CardContent>
+          <CardActions>
+            <Button onClick={() => navigate(-1)}>Go Back</Button>
+          </CardActions>
+        </Card>
+      )}
+    </>
   );
 };
 

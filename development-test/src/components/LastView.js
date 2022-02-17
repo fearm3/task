@@ -9,12 +9,14 @@ import {
 } from "@mui/material";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { getViews } from "../redux/actions";
 
 const LastView = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const lastUserViews = useSelector((state) => state.rootReducer);
-  console.log("lastUserViews", lastUserViews);
+  //   console.log("lastUserViews", lastUserViews);
   useEffect(() => {
     dispatch(getViews());
   }, [dispatch]);
@@ -40,7 +42,10 @@ const LastView = () => {
               sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
               key={item.id}
             >
-              <ListItem alignItems="flex-start">
+              <ListItem
+                alignItems="flex-start"
+                onClick={() => navigate(`detail/${item.id}`)}
+              >
                 <ListItemAvatar>
                   <Avatar
                     alt={item.name.toUpperCase()}
