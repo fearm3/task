@@ -1,5 +1,6 @@
+import { Grid } from "@mui/material";
 import axios from "axios";
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -109,25 +110,27 @@ const Home = () => {
   }, [filterText, resetPaginationToggle]);
 
   return (
-    <Fragment>
-      <DataTable
-        title="Contact List"
-        columns={columns}
-        data={filteredItems}
-        pagination
-        paginationResetDefaultPage={resetPaginationToggle}
-        subHeader
-        subHeaderComponent={subHeaderComponentMemo}
-        // selectableRows
-        expandableRows
-        // expandableRowsComponent
-        persistTableHead
-        paginationServer
-        paginationTotalRows={10000}
-        onChangePage={handlePageChange}
-        theme="dark"
-      />
-    </Fragment>
+    <Grid container spacing={2}>
+      <Grid item xs={9}>
+        <DataTable
+          title="Employee List"
+          columns={columns}
+          data={filteredItems}
+          pagination
+          paginationResetDefaultPage={resetPaginationToggle}
+          subHeader
+          subHeaderComponent={subHeaderComponentMemo}
+          persistTableHead
+          paginationServer
+          paginationTotalRows={10000}
+          onChangePage={handlePageChange}
+          theme="dark"
+        />
+      </Grid>
+      <Grid item xs={3}>
+        <LastView />
+      </Grid>
+    </Grid>
   );
 };
 

@@ -17,14 +17,14 @@ export const rootReducer = (state = initialState.lastViews, action) => {
       if (addedItem) {
         return state;
       } else {
-        const newState = [...state, action.payload].slice(-5);
+        const newState = [action.payload, ...state].slice(0, 5);
 
         localStorage.setItem("lastView", JSON.stringify(newState));
         console.log(newState);
         return newState;
       }
     case GET_VIEWS:
-      return [...action.payload];
+      return action.payload;
 
     default: {
       return state;

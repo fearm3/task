@@ -1,13 +1,14 @@
-import { CardContent, Typography } from "@mui/material";
+import { Button, Card, CardContent, Typography } from "@mui/material";
 import axios from "axios";
 import React, { Fragment, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const Detail = () => {
   const { id } = useParams();
   const [userData, setUserData] = useState();
   const [userPost, setUserPost] = useState();
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const fetchUsersData = async (id) => {
     setLoading(true);
 
@@ -38,7 +39,7 @@ const Detail = () => {
   }, [id]);
 
   return (
-    <div>
+    <Card>
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
           {userData?.name}
@@ -61,7 +62,13 @@ const Detail = () => {
           <p>No post added</p>
         )}
       </CardContent>
-    </div>
+      <Button
+        style={{ display: "grid", placeItems: "center" }}
+        onClick={() => navigate(-1)}
+      >
+        Back Home
+      </Button>
+    </Card>
   );
 };
 
